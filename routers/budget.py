@@ -1,8 +1,11 @@
 from fastapi import APIRouter, Depends, HTTPException, Request
 from pydantic import BaseModel
+from sqlalchemy.ext.asyncio import AsyncSession
 
-from auth import get_current_user, get_user_transactions, _save_users, user_transactions, _save_transactions
-from utils.budget_calc import get_budget_summary_data, get_auto_adjust_data
+from auth import get_current_user, get_user_transactions
+from database import get_db
+from models import User
+from utils.budget_calc import get_auto_adjust_data, get_budget_summary_data
 
 router = APIRouter()
 
@@ -11,59 +14,50 @@ class ApplyPlanRequest(BaseModel):
     new_daily_limit: float
 
 
-def load_user_transactions(user: dict) -> list[dict]:
-    return get_user_transactions(user["email"])
+def _user_profile(user: User) -> dict:
+    return {
+        "monthly_allowance": user.monthly_allowance,
+        "feeding_budget": user.feeding_budget,
+        "allowance_period": user.allowance_period or "monthly",
+    }
 
 
 @router.get("/budget/summary")
-def budget_summary(
+async def budget_summary(
     request: Request,
-    current_user: dict = Depends(get_current_user),
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
 ):
-    transactions = load_user_transactions(current_user)
-    profile = {
-        "monthly_allowance": current_user["monthly_allowance"],
-        "feeding_budget": current_user["feeding_budget"],
-        "allowance_period": current_user.get("allowance_period", "monthly"),
-    }
-    return get_budget_summary_data(profile, transactions, request.app.state.food_df)
+    transactions = await get_user_transactions(current_user.email, db)
+    return get_budget_summary_data(_user_profile(current_user), transactions, request.app.state.food_df)
 
 
 @router.post("/budget/auto-adjust")
-def auto_adjust(
+async def auto_adjust(
     request: Request,
-    current_user: dict = Depends(get_current_user),
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
 ):
-    transactions = load_user_transactions(current_user)
-    profile = {
-        "monthly_allowance": current_user["monthly_allowance"],
-        "feeding_budget": current_user["feeding_budget"],
-        "allowance_period": current_user.get("allowance_period", "monthly"),
-    }
-    return get_auto_adjust_data(profile, transactions, request.app.state.food_df)
+    transactions = await get_user_transactions(current_user.email, db)
+    return get_auto_adjust_data(_user_profile(current_user), transactions, request.app.state.food_df)
 
 
 @router.post("/budget/apply-plan")
-def apply_plan(
+async def apply_plan(
     body: ApplyPlanRequest,
     request: Request,
-    current_user: dict = Depends(get_current_user),
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
 ):
-    transactions = load_user_transactions(current_user)
-    profile = {
-        "monthly_allowance": current_user["monthly_allowance"],
-        "feeding_budget": current_user["feeding_budget"],
-        "allowance_period": current_user.get("allowance_period", "monthly"),
-    }
-
-    summary = get_budget_summary_data(profile, transactions, request.app.state.food_df)
+    transactions = await get_user_transactions(current_user.email, db)
+    summary = get_budget_summary_data(_user_profile(current_user), transactions, request.app.state.food_df)
     days_remaining = summary["days_remaining"]
     if days_remaining == 0:
         raise HTTPException(status_code=400, detail="Cannot apply plan because there are no days remaining.")
 
     new_feeding_budget = round(body.new_daily_limit * days_remaining, 2)
-    current_user["feeding_budget"] = new_feeding_budget
-    _save_users()
+    current_user.feeding_budget = new_feeding_budget
+    db.add(current_user)
 
     return {
         "success": True,
@@ -73,12 +67,13 @@ def apply_plan(
 
 
 @router.post("/budget/reset-cycle")
-def reset_cycle(
-    current_user: dict = Depends(get_current_user),
+async def reset_cycle(
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
 ):
-    email = current_user["email"]
-    user_transactions[email] = []
-    _save_transactions()
+    from sqlalchemy import delete
+    from models import Transaction
+    await db.execute(delete(Transaction).where(Transaction.user_email == current_user.email))
     return {
         "success": True,
         "message": "New allowance cycle started. Your spent has been reset.",
@@ -86,12 +81,13 @@ def reset_cycle(
 
 
 @router.post("/budget/reset-transactions")
-def reset_transactions(
-    current_user: dict = Depends(get_current_user),
+async def reset_transactions(
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
 ):
-    email = current_user["email"]
-    user_transactions[email] = []
-    _save_transactions()
+    from sqlalchemy import delete
+    from models import Transaction
+    await db.execute(delete(Transaction).where(Transaction.user_email == current_user.email))
     return {
         "success": True,
         "message": "All expenses cleared.",

@@ -1,9 +1,10 @@
-from datetime import date
-
 from fastapi import APIRouter, Depends
 from pydantic import BaseModel
+from sqlalchemy.ext.asyncio import AsyncSession
 
-from auth import get_current_user, user_transactions, _save_transactions
+from auth import get_current_user
+from database import get_db
+from models import Transaction, User
 
 router = APIRouter()
 
@@ -17,27 +18,30 @@ class AddTransactionRequest(BaseModel):
 
 
 @router.post("/transactions/add")
-def add_transaction(
+async def add_transaction(
     body: AddTransactionRequest,
-    current_user: dict = Depends(get_current_user),
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
 ):
-    email = current_user["email"]
-    transaction = {
-        "date": body.date,
-        "category": body.category,
-        "vendor": body.vendor,
-        "item": body.item,
-        "amount": body.amount,
-    }
-
-    if email not in user_transactions:
-        user_transactions[email] = []
-
-    user_transactions[email].append(transaction)
-    _save_transactions()
+    transaction = Transaction(
+        user_email=current_user.email,
+        date=body.date,
+        category=body.category,
+        vendor=body.vendor,
+        item=body.item,
+        amount=body.amount,
+    )
+    db.add(transaction)
+    await db.flush()
 
     return {
         "success": True,
-        "transaction": transaction,
+        "transaction": {
+            "date": body.date,
+            "category": body.category,
+            "vendor": body.vendor,
+            "item": body.item,
+            "amount": body.amount,
+        },
         "message": f"Expense of ₦{body.amount} at {body.vendor} logged successfully.",
     }

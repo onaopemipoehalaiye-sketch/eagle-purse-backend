@@ -9,3 +9,7 @@ passlib[bcrypt]
 python-multipart
 sqladmin
 itsdangerous
+sqlalchemy[asyncio]
+asyncpg
+psycopg2-binary
+starlette

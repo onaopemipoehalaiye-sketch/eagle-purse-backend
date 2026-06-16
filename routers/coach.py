@@ -1,12 +1,16 @@
 import os
-from fastapi import APIRouter, Request, Depends
+
+from fastapi import APIRouter, Depends, Request
 from openai import OpenAI
 from pydantic import BaseModel
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from auth import get_current_user, get_user_transactions
+from database import get_db
+from models import User
 from schemas import CoachAdviceResponse
-from utils.loader import get_feeding_spent, get_total_spent, get_days_elapsed
-from utils.budget_calc import get_budget_summary_data, get_auto_adjust_data, get_period_days
+from utils.budget_calc import get_auto_adjust_data, get_budget_summary_data, get_period_days
+from utils.loader import get_days_elapsed, get_feeding_spent, get_total_spent
 from utils.meals_logic import generate_meal_combos
 
 router = APIRouter()
@@ -53,20 +57,22 @@ def build_state_text(profile: dict, transactions: list[dict], food_df) -> str:
 
 
 @router.post("/coach/advice")
-def coach_advice(
+async def coach_advice(
     request: Request,
     body: AdviceRequest,
-    current_user: dict = Depends(get_current_user),
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
 ) -> CoachAdviceResponse:
+    meal_times = current_user.meal_times or ["breakfast", "lunch", "dinner"]
     profile = {
-        "monthly_allowance": current_user["monthly_allowance"],
-        "feeding_budget": current_user["feeding_budget"],
-        "allowance_period": current_user.get("allowance_period", "monthly"),
-        "dietary_pref": current_user.get("dietary_pref"),
-        "meals_per_day": current_user.get("meals_per_day", 3),
-        "meal_times": current_user.get("meal_times", ["breakfast", "lunch", "dinner"]),
+        "monthly_allowance": current_user.monthly_allowance,
+        "feeding_budget": current_user.feeding_budget,
+        "allowance_period": current_user.allowance_period or "monthly",
+        "dietary_pref": current_user.dietary_pref,
+        "meals_per_day": current_user.meals_per_day,
+        "meal_times": meal_times,
     }
-    transactions = get_user_transactions(current_user["email"])
+    transactions = await get_user_transactions(current_user.email, db)
 
     food_df = request.app.state.food_df
     state_text = build_state_text(profile, transactions, food_df)
@@ -78,7 +84,7 @@ def coach_advice(
         or (auto_adjust_plan.get("new_daily_limit", 0) < summary.get("survival_threshold", 0))
     )
 
-    plan_lines = [f"Auto-adjust plan:", f"New daily limit: ₦{auto_adjust_plan.get('new_daily_limit')}" ]
+    plan_lines = [f"Auto-adjust plan:", f"New daily limit: ₦{auto_adjust_plan.get('new_daily_limit')}"]
     if auto_adjust_plan.get("sacrifices"):
         plan_lines.append("Sacrifices: " + ", ".join(auto_adjust_plan.get("sacrifices")))
     if auto_adjust_plan.get("suggested_meals"):
@@ -88,15 +94,14 @@ def coach_advice(
         ])
         plan_lines.append("Suggested meals: " + meals_text)
 
-    # Generate combos for the system prompt
     daily_budget = auto_adjust_plan.get("new_daily_limit", 0)
     combo_data = generate_meal_combos(
-        daily_budget=daily_budget, 
-        food_df=food_df, 
-        meal_times=profile.get("meal_times", ["breakfast", "lunch", "dinner"]), 
-        dietary_pref=profile.get("dietary_pref")
+        daily_budget=daily_budget,
+        food_df=food_df,
+        meal_times=profile.get("meal_times", ["breakfast", "lunch", "dinner"]),
+        dietary_pref=profile.get("dietary_pref"),
     )
-    
+
     if combo_data.get("survival_mode"):
         plan_lines.append(
             "CRITICAL SURVIVAL MODE: The student's daily budget is too low for their requested number of meals. "

@@ -1,9 +1,11 @@
-from fastapi import APIRouter, Depends, Query, Request
+from fastapi import APIRouter, Depends, Request
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from auth import get_current_user, get_user_transactions
-from schemas import FoodItem
-from utils.loader import get_feeding_spent, get_days_elapsed
+from database import get_db
+from models import User
 from utils.budget_calc import get_period_days
+from utils.loader import get_days_elapsed, get_feeding_spent
 from utils.meals_logic import generate_meal_combos
 
 router = APIRouter()
@@ -18,43 +20,27 @@ def calculate_daily_budget(profile: dict, transactions: list[dict]) -> float:
     return round(remaining_feeding / days_remaining, 2) if days_remaining > 0 else 0.0
 
 
-def load_user_transactions(user: dict) -> list[dict]:
-    return get_user_transactions(user["email"])
-
-
 @router.get("/coach/meal-plan")
-def meal_plan(
+async def meal_plan(
     request: Request,
-    current_user: dict = Depends(get_current_user),
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
 ):
-    transactions = load_user_transactions(current_user)
-    actual_meal_times = current_user.get("meal_times")
-    if actual_meal_times is None:
-        old_meals = current_user.get("meals_per_day", 3)
-        actual_meal_times = []
-        if old_meals >= 1:
-            actual_meal_times.append("breakfast")
-        if old_meals >= 2:
-            actual_meal_times.append("lunch")
-        if old_meals >= 3:
-            actual_meal_times.append("dinner")
-        if old_meals >= 4:
-            actual_meal_times.append("snack")
-        if not actual_meal_times:
-            actual_meal_times = ["breakfast", "lunch", "dinner"]
+    transactions = await get_user_transactions(current_user.email, db)
+    meal_times = current_user.meal_times or ["breakfast", "lunch", "dinner"]
 
     profile = {
-        "monthly_allowance": current_user["monthly_allowance"],
-        "feeding_budget": current_user["feeding_budget"],
-        "allowance_period": current_user.get("allowance_period", "monthly"),
-        "dietary_pref": current_user.get("dietary_pref"),
+        "monthly_allowance": current_user.monthly_allowance,
+        "feeding_budget": current_user.feeding_budget,
+        "allowance_period": current_user.allowance_period or "monthly",
+        "dietary_pref": current_user.dietary_pref,
     }
     food_df = request.app.state.food_df
     daily_budget = calculate_daily_budget(profile, transactions)
-    
+
     return generate_meal_combos(
-        daily_budget=daily_budget, 
-        food_df=food_df, 
-        meal_times=actual_meal_times, 
-        dietary_pref=profile["dietary_pref"]
+        daily_budget=daily_budget,
+        food_df=food_df,
+        meal_times=meal_times,
+        dietary_pref=profile["dietary_pref"],
     )
