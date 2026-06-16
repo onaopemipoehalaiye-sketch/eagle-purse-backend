@@ -32,7 +32,13 @@ create_admin(app, engine)
 
 
 @app.on_event("startup")
-def startup_event():
+async def startup_event():
+    # Auto-create tables if they don't exist (safe to run every startup)
+    from models import Base
+    from database import engine
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+
     app.state.food_df = load_food_catalog()
 
 
