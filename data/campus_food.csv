@@ -1,0 +1,56 @@
+vendor,item,price,meal_type,protein,carbs,veg,location,tags,category
+Omega Cafeteria,White Rice,1200,lunch,0,1,0,Main Campus,no-pork,standard
+Omega Cafeteria,Jollof Rice,1200,lunch,0,1,0,Main Campus,no-pork,standard
+Davta,Fried Rice,1200,lunch,0,1,0,New Hostel,no-pork,standard
+ETC,Rice and Beans,1600,lunch,1,1,1,Faculty Area,no-pork,standard
+Bon Appetit,Special Rice (with proteins),1800,lunch,1,1,0,Old Hostel,"meat,no-pork",standard
+Ngozika Cafeteria,Beans (plate),900,lunch,1,0,1,Main Campus,"vegetarian,no-pork",standard
+Nnabis,Porridge Yam,1150,lunch,0,1,1,New Hostel,"vegetarian,no-pork",standard
+Omega Cafeteria,Spaghetti (plain),1200,lunch,0,1,0,Main Campus,no-pork,standard
+Davta,Spaghetti with Chicken,2500,lunch,1,1,0,New Hostel,"meat,no-pork",standard
+ETC,Spaghetti with Beef,2500,lunch,1,1,0,Faculty Area,"meat,no-pork",standard
+Bon Appetit,Rice with Chicken,2500,lunch,1,1,0,Old Hostel,"meat,no-pork",standard
+Ngozika Cafeteria,Rice with Beef,2500,lunch,1,1,0,Main Campus,"meat,no-pork",standard
+Nnabis,Rice with Fish,2000,lunch,1,1,0,New Hostel,"meat,no-pork",standard
+Omega Cafeteria,Rice with Egg,1800,lunch,1,1,0,Main Campus,"egg,no-pork",standard
+Davta,Rice with Sausage,1800,lunch,1,1,0,New Hostel,"meat,no-pork",standard
+ETC,Rice with Salad (coleslaw),1500,lunch,0,1,1,Faculty Area,"vegetarian,no-pork",standard
+Bon Appetit,Bread & Egg with Tea,1500,breakfast,1,1,0,Old Hostel,"egg,no-pork",standard
+Ngozika Cafeteria,Yam & Egg Sauce,1500,breakfast,1,1,0,Main Campus,"egg,no-pork",standard
+Nnabis,Beans & Bread,1400,breakfast,1,1,1,New Hostel,"vegetarian,no-pork",standard
+Omega Cafeteria,Beans Porridge & Bread,1300,breakfast,1,1,1,Main Campus,"vegetarian,no-pork",standard
+Bingham Village Moi-Moi Spot,Moi-Moi (1 wrap),250,breakfast,1,0,1,Bingham Village,"vegetarian,no-pork",lifehack
+Bingham Village Moi-Moi Spot,Akara (1 piece),50,breakfast,1,0,1,Bingham Village,"vegetarian,no-pork",lifehack
+Bingham Village Moi-Moi Spot,Yam (slice),100,breakfast,0,1,1,Bingham Village,"vegetarian,no-pork",lifehack
+Bingham Village Moi-Moi Spot,Bread (half loaf),400,breakfast,0,1,1,Bingham Village,"vegetarian,no-pork",lifehack
+Bingham Village Moi-Moi Spot,Bread (full loaf),800,breakfast,0,1,1,Bingham Village,"vegetarian,no-pork",lifehack
+Bingham Village Moi-Moi Spot,Pap (cup),200,breakfast,0,1,1,Bingham Village,"vegetarian,no-pork",lifehack
+Bingham Village Moi-Moi Spot,Okpa (1 wrap),200,breakfast,1,1,1,Bingham Village,"vegetarian,no-pork",lifehack
+Bingham Village Moi-Moi Spot,Masa (1 piece),100,breakfast,0,1,1,Bingham Village,"vegetarian,no-pork",lifehack
+Bingham Village Moi-Moi Spot,Awara (tofu skewer),100,snack,1,0,1,Bingham Village,"vegetarian,no-pork",lifehack
+Bingham Village Moi-Moi Spot,Roasted Yam & Oil,400,lunch,0,1,1,Bingham Village,"vegetarian,no-pork",lifehack
+Bingham Village Suya Spot,Beef Suya (stick),200,snack,1,0,0,Bingham Village,"meat,no-pork",lifehack
+Bingham Village Suya Spot,Chicken Suya (quarter),700,snack,1,0,0,Bingham Village,"meat,no-pork",lifehack
+Bingham Village Suya Spot,Ram Suya (small),800,snack,1,0,0,Bingham Village,"meat,no-pork",lifehack
+Munchbox,Meat Pie,800,snack,1,1,0,Back Gate,"meat,no-pork",snack
+Just Eats,Puf Puf (piece),50,snack,0,1,1,Back Gate,"vegetarian,no-pork",snack
+Back Gate spots,Buns (piece),50,snack,0,1,1,Back Gate,"vegetarian,no-pork",snack
+Munchbox,Fish Roll,350,snack,1,1,0,Back Gate,"meat,no-pork",snack
+Just Eats,Samusa,350,snack,1,1,0,Back Gate,"meat,no-pork",snack
+Back Gate spots,Spring Rolls (3pcs),300,snack,0,1,1,Back Gate,"vegetarian,no-pork",snack
+Munchbox,Biscuits (pack),500,snack,0,1,1,Back Gate,"vegetarian,no-pork",snack
+Just Eats,Sweets,50,snack,0,1,1,Back Gate,"vegetarian,no-pork",snack
+Back Gate spots,Lollipop,150,snack,0,1,1,Back Gate,"vegetarian,no-pork",snack
+Bingham Village Drinks,Soft Drink (bottle),400,drink,0,0,1,Bingham Village,"vegetarian,no-pork",drink
+Bingham Village Drinks,Table Water (sachet),50,drink,0,0,1,Bingham Village,"vegetarian,no-pork",drink
+Bingham Village Drinks,Zobo (cup),350,drink,0,0,1,Bingham Village,"vegetarian,no-pork",drink
+Bingham Village Drinks,Kunu (cup),350,drink,0,0,1,Bingham Village,"vegetarian,no-pork",drink
+Bingham Village Drinks,Tigernut,200,drink,0,0,1,Bingham Village,"vegetarian,no-pork",drink
+Bingham Village Drinks,Yoghurt (Nutri Milk),850,drink,1,1,1,Bingham Village,"vegetarian,no-pork",drink
+Provision,Garri (student provision),0,provision,0,1,1,Hostel,"vegetarian,no-pork",provision
+Provision,Sugar (provision),0,provision,0,1,1,Hostel,"vegetarian,no-pork",provision
+Provision,Garri (1 derica),500,provision,0,1,1,Hostel,"vegetarian,no-pork",provision
+Provision,Sugar (1 packet),300,provision,0,1,1,Hostel,"vegetarian,no-pork",provision
+Provision,Cornflakes (small pack),800,provision,0,1,1,Hostel,"vegetarian,no-pork",provision
+Provision,Custard (sachet),400,provision,0,1,1,Hostel,"vegetarian,no-pork",provision
+Provision,Biscuits (Golden Morn),600,provision,0,1,1,Hostel,"vegetarian,no-pork",provision

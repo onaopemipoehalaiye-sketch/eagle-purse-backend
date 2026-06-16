@@ -1,0 +1,139 @@
+{
+  "samuelehalaiye@gmail.com": [
+    {
+      "date": "2026-05-20",
+      "category": "data",
+      "vendor": "Mama Bose Canteen",
+      "item": "Mama Bose Canteen",
+      "amount": 700.0
+    },
+    {
+      "date": "2026-05-20",
+      "category": "feeding",
+      "vendor": "SSPECIAL",
+      "item": "SSPECIAL",
+      "amount": 1250.0
+    },
+    {
+      "date": "2026-05-20",
+      "category": "data",
+      "vendor": "MTN Data",
+      "item": "MTN Data",
+      "amount": 10000.0
+    },
+    {
+      "date": "2026-05-20",
+      "category": "printing",
+      "vendor": "GREEN PLAZA",
+      "item": "GREEN PLAZA",
+      "amount": 800.0
+    },
+    {
+      "date": "2026-05-20",
+      "category": "entertainment",
+      "vendor": "SPOTIFY",
+      "item": "SPOTIFY",
+      "amount": 1600.0
+    },
+    {
+      "date": "2026-05-20",
+      "category": "other",
+      "vendor": "CLOTHES",
+      "item": "CLOTHES",
+      "amount": 14000.0
+    }
+  ],
+  "nmutafelix2009@gmail.com": [
+    {
+      "date": "2026-05-19",
+      "category": "data",
+      "vendor": "MTN Data",
+      "item": "MTN Data",
+      "amount": 1000.0
+    },
+    {
+      "date": "2026-05-19",
+      "category": "other",
+      "vendor": "Mama Bose Canteen",
+      "item": "Mama Bose Canteen",
+      "amount": 25000.0
+    },
+    {
+      "date": "2026-05-19",
+      "category": "feeding",
+      "vendor": "Mama Bose Canteen",
+      "item": "Mama Bose Canteen",
+      "amount": 25000.0
+    },
+    {
+      "date": "2026-05-19",
+      "category": "data",
+      "vendor": "MTN Data",
+      "item": "MTN Data",
+      "amount": 8000.0
+    },
+    {
+      "date": "2026-05-19",
+      "category": "data",
+      "vendor": "MTN Data",
+      "item": "MTN Data",
+      "amount": 8000.0
+    }
+  ],
+  "test_allowance@test.com": [
+    {
+      "amount": 1000,
+      "category": "feeding",
+      "date": "2026-05-15"
+    },
+    {
+      "amount": 500,
+      "category": "snack",
+      "date": "2026-05-16"
+    }
+  ],
+  "modilimvictor11@gmail.com": [
+    {
+      "date": "2026-05-19",
+      "category": "other",
+      "vendor": "tyuiop[",
+      "item": "tyuiop[",
+      "amount": 60000.0
+    }
+  ],
+  "onaopermain@gamaild.dom": [
+    {
+      "date": "2026-05-19",
+      "category": "other",
+      "vendor": "on my girlfirend",
+      "item": "on my girlfirend",
+      "amount": 90000.0
+    },
+    {
+      "date": "2026-05-19",
+      "category": "entertainment",
+      "vendor": "SSPECIAL",
+      "item": "SSPECIAL",
+      "amount": 50000.0
+    },
+    {
+      "date": "2026-05-19",
+      "category": "feeding",
+      "vendor": "OMEGA CAFETERIA",
+      "item": "OMEGA CAFETERIA",
+      "amount": 80000.0
+    }
+  ],
+  "onaopemipo.ehalaiye@bingham.edu.ng": [],
+  "onaopemipo.ehalaiye@bingham.edu.nk": [],
+  "onaopemipo.ehalaiye@bingham.edu.nu": [],
+  "joshuaanyia7@gmail.com": [
+    {
+      "date": "2026-05-20",
+      "category": "data",
+      "vendor": "MTN Data",
+      "item": "MTN Data",
+      "amount": 100000.0
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+fastapi
+uvicorn[standard]
+pandas
+openai
+python-dotenv
+bcrypt==3.2.2
+python-jose[cryptography]
+passlib[bcrypt]
+python-multipart
+sqladmin
+itsdangerous

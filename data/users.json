@@ -1,0 +1,101 @@
+{
+  "samuelehalaiye@gmail.com": {
+    "email": "samuelehalaiye@gmail.com",
+    "password_hash": "$2b$12$kuM5AqLr1U.Q2.YCKf/d5e9tYD.8VOU1yM/WMk1sxYZakCR.gblY.",
+    "monthly_allowance": 300000.0,
+    "feeding_budget": 25000.0,
+    "campus_zone": "New hostel",
+    "dietary_pref": "",
+    "allowance_period": "weekly",
+    "meal_times": [
+      "dinner",
+      "lunch",
+      "breakfast"
+    ],
+    "meals_per_day": 3
+  },
+  "nmutafelix2009@gmail.com": {
+    "email": "nmutafelix2009@gmail.com",
+    "password_hash": "$2b$12$rd.k3kf9CAPDn2o573uWO.eZsx5bkcF.1rSFgzxHLexrP1UusxsMm",
+    "monthly_allowance": 1000000.0,
+    "feeding_budget": 500000.0,
+    "campus_zone": "OLD BOYS HOSTEL",
+    "dietary_pref": "PROTEIN"
+  },
+  "modilimvictor11@gmail.com": {
+    "email": "modilimvictor11@gmail.com",
+    "password_hash": "$2b$12$hZXkM54Q31037DUDti5xDeQLgD4C1waoTjlDTHqg34GqDiDEsXe.6",
+    "monthly_allowance": 14000.0,
+    "feeding_budget": 10000.0,
+    "campus_zone": "old hostel",
+    "dietary_pref": "masa,akara,moimoi,okpa,beans",
+    "allowance_period": "monthly"
+  },
+  "onaopermain@gamaild.dom": {
+    "email": "onaopermain@gamaild.dom",
+    "password_hash": "$2b$12$962iR3sKg4/2CO/pAhQA0e9oBWnRqHH7qrwrs5j6adjQjSqe5mTc2",
+    "monthly_allowance": 24999.0,
+    "feeding_budget": -219999.96,
+    "campus_zone": "Old boys hostel",
+    "dietary_pref": "no preference",
+    "allowance_period": "weekly"
+  },
+  "onaopemipo.ehalaiye@bingham.edu.ng": {
+    "email": "onaopemipo.ehalaiye@bingham.edu.ng",
+    "password_hash": "$2b$12$9taJ6QdDcnUT006mFJfaxO1Ya230GB8Ph62uyzHBSbpZCI2KNzd9G",
+    "monthly_allowance": 30000.0,
+    "feeding_budget": 15000.0,
+    "dietary_pref": "rice and beans, bread and egg",
+    "allowance_period": "monthly"
+  },
+  "onaopemipo.ehalaiye@bingham.edu.nk": {
+    "email": "onaopemipo.ehalaiye@bingham.edu.nk",
+    "password_hash": "$2b$12$wY26IuuMXlAT4HQJj1K5fOp/IX/IStH/jobiPdoUd3gs1X1cGNGyy",
+    "monthly_allowance": 30000.0,
+    "feeding_budget": 15000.0,
+    "dietary_pref": "rice and beans",
+    "allowance_period": "weekly",
+    "meals_per_day": 2
+  },
+  "test_allowance@test.com": {
+    "email": "test_allowance@test.com",
+    "password_hash": "$2b$12$zPwqbkogfD9Sr0GrLE78nebSGnzZM3Yb.pxI7hPiD8p92xWVIJTyK",
+    "monthly_allowance": 10000,
+    "feeding_budget": 5000,
+    "dietary_pref": null,
+    "allowance_period": "weekly",
+    "meals_per_day": 3,
+    "meal_times": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ]
+  },
+  "onaopemipo.ehalaiye@bingham.edu.nu": {
+    "email": "onaopemipo.ehalaiye@bingham.edu.nu",
+    "password_hash": "$2b$12$8XJMEtzmui7DxzbtX4cMfOWTrY0mo1P4tpD1MihlWBH4ddOtnmS3.",
+    "monthly_allowance": 30000.0,
+    "feeding_budget": 25000.0,
+    "dietary_pref": "",
+    "allowance_period": "weekly",
+    "meals_per_day": 3,
+    "meal_times": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ]
+  },
+  "joshuaanyia7@gmail.com": {
+    "email": "joshuaanyia7@gmail.com",
+    "password_hash": "$2b$12$JcWGdKATbHjWVMe6WlZXJeeloFTf2fIRjRbhrb4n4FqW62v883/Du",
+    "monthly_allowance": 50000.0,
+    "feeding_budget": 30000.0,
+    "dietary_pref": "Rice and chicken",
+    "allowance_period": "monthly",
+    "meals_per_day": 2,
+    "meal_times": [
+      "dinner",
+      "breakfast"
+    ]
+  }
+}
