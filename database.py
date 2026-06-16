@@ -3,7 +3,14 @@ from typing import AsyncGenerator
 
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql+asyncpg://myappuser:your_strong_password@localhost/eaglepurse")
+_raw_url = os.getenv("DATABASE_URL", "postgresql+asyncpg://myappuser:your_strong_password@localhost/eaglepurse")
+
+# Render (and many hosts) provide postgres:// or postgresql:// — normalize to asyncpg
+DATABASE_URL = (
+    _raw_url
+    .replace("postgres://", "postgresql+asyncpg://")
+    .replace("postgresql://", "postgresql+asyncpg://")
+)
 
 engine = create_async_engine(DATABASE_URL, echo=False, pool_pre_ping=True)
 

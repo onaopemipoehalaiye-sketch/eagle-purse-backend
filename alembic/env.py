@@ -19,9 +19,13 @@ if config.config_file_name:
 
 target_metadata = Base.metadata
 
-# Convert asyncpg URL → psycopg2 for Alembic (which runs sync)
+# Convert any async/shorthand URL → sync psycopg2 for Alembic
 _raw_url = os.getenv("DATABASE_URL", "postgresql://myappuser:your_strong_password@localhost/eaglepurse")
-_sync_url = _raw_url.replace("postgresql+asyncpg://", "postgresql://").replace("asyncpg://", "postgresql://")
+_sync_url = (
+    _raw_url
+    .replace("postgresql+asyncpg://", "postgresql://")
+    .replace("postgres://", "postgresql://")
+)
 config.set_main_option("sqlalchemy.url", _sync_url)
 
 
